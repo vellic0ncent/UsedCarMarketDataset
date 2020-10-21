@@ -1,0 +1,6 @@
+brand,model,year,mileage,engine_type,transmission,color,bodywork,doors_num,steering_wheel,vin,owners_num,tech_condition,horsepower,engine_capacity,price,price_currency,price_with_nds
+Audi,A6,1998,280000,GASOLINE,FORWARD_CONTROL,040001,SEDAN,4,LEFT,WAU**************,3,NOT_BEATEN,165,2.4 MT (165 л.с.),288000,RUR,False
+Audi,A4,1999,312000,GASOLINE,FORWARD_CONTROL,CACECB,WAGON_5_DOORS,5,LEFT,WAU**************,3,NOT_BEATEN,150,1.8 MT (150 л.с.),300000,RUR,False
+Audi,A5,2010,147000,DIESEL,ALL_WHEEL_DRIVE,CACECB,COUPE,2,LEFT,WAU**************,2,NOT_BEATEN,239,3.0d AMT (239 л.с.) 4WD,1200000,RUR,False
+Audi,A3,2011,123000,GASOLINE,FORWARD_CONTROL,FAFBFB,HATCHBACK_5_DOORS,5,LEFT,WAU**************,3,NOT_BEATEN,160,1.8 AMT (160 л.с.),550000,RUR,False
+Audi,Q3,2012,130000,GASOLINE,ALL_WHEEL_DRIVE,FAFBFB,ALLROAD_5_DOORS,5,LEFT,WAU**************,3,NOT_BEATEN,170,2.0 AMT (170 л.с.) 4WD,850000,RUR,False
