@@ -13,19 +13,16 @@ Public placed offers on 5 popular sources with used cars offers in Russia:
 5. http://Irr.ru
 
 ### Repo structure
-##### data
-includes folder "interim" and integrated result from the folder "interim" in .csv format
-###### data/interim
-includes raw data got by 5 parsers in .csv format
-##### scr
-includes 5 parsers in .py format and integrator main.py
-##### README 
-includes dataset detailed information on collection methods, features and others params.
+1) */data* includes folder "interim" and integrated result from the folder "interim" in .csv format
+2) */data/interim* includes raw data got by 5 parsers in .csv format
+3) *scr* ncludes 5 parsers in .py format and integrator main.py
+4) *README* includes dataset detailed information on collection methods, features and others params.
 
-### Data format
-Parse data, merge and get .csv.
+### Data collection methods and formating
+Parse data on the main page, get into the offer for the detailed information transfer through all the pages. Pre-process of the data integration is to unify the measures and values, all in all format to get RAW DATA (/data/interim/). Some aspects need to consider, f.e.: "color" parameter unify - hex transformation (auto.ru) and translation of color name from ru to eng for other sources. Data integration step includes merge info from all the sources.
 
 ### Features placement
+Features are based on 3 blocks - car identity, technical parameters, figure (build) parameters and others. All the detailed information is placed below.
 
 ##### Characteristics for car identify:
 
