@@ -13,27 +13,109 @@ Public placed offers on 5 popular sources with used cars offers in Russia:
 5. http://Irr.ru
 
 ### Repo structure
-README includes dataset detailed information on collection methods, features and others params.
-FOLDER DATA includes parsed data from all the sources.
-REQUIREMENTS includes libraries to work with.
+##### data
+includes folder "interim" and integrated result from the folder "interim" in .csv format
+###### data/interim
+includes raw data got by 5 parsers in .csv format
+##### scr
+includes 5 parsers in .py format and integrator main.py
+##### README 
+includes dataset detailed information on collection methods, features and others params.
 
 ### Data format
 Parse data, merge and get .csv.
 
 ### Features placement
 
-- brand - производитель
-- model - модель
-- year - год выпуска
-- mileage - пробег
-- engine_type - тип двигателя
-- engine_capacity - объем двигатеря
-- horsepower - лошадиные силы
-- gear - привод
-- color - цвет кузова
-- bodywork - тип кузова
-- doors_num - количество дверей
-- steering_wheel - руль
-- vin - номер кузова
-- owners_num - владельцы по ПТС
-- tech_condition - техническое состояние
+##### Characteristics for car identify:
+
+`brand [производитель]`
+Type | Valid values | Comment | Units
+--- | --- | --- | ---
+str | AUDI | Identified by user | -
+
+`model [модель]`
+Type | Valid values | Comment | Units
+--- | --- | --- | ---
+str | A3-A8, Q3-Q8 and others | - | -
+
+`year [год выпуска]`
+Type | Valid values | Comment | Units
+--- | --- | --- | ---
+int | 1960 - 2020 | - | year
+
+`price [цена]`
+Type | Valid values | Comment | Units
+--- | --- | --- | ---
+int | 0 + | - | RUB w/o VAT
+
+`mileage [пробег]`
+Type | Valid values | Comment | Units
+--- | --- | --- | ---
+int | 0 + | - | km
+
+##### Technical parameters for car identify:
+
+`horsepower [лошадиные силы]`
+Type | Valid values | Comment | Units
+--- | --- | --- | ---
+int | 0 + | - | hp
+
+`engine_capacity [крутящий момент двигателя]`
+Type | Valid values | Comment | Units
+--- | --- | --- | ---
+float | 0 + | - | nm
+
+`engine_type [тип двигателя]`
+Type | Valid values | Comment | Units
+--- | --- | --- | ---
+str | DIESEL, GASOLINE, ELECTRO, HYBRID | дизель, бензин, электро, гибрид | -
+
+`gear [привод]`
+Type | Valid values | Comment | Units
+--- | --- | --- | ---
+str | ALL_WHEEL_DRIVE, FORWARD_CONTROL, BACKWARD_CONTROL | полный, передний, задний | -
+
+`transmission [трансмиссия]`
+Type | Valid values | Comment | Units
+--- | --- | --- | ---
+str | AMT, AT, CVT, MT | Робот, автомат, вариатор, механика | -
+
+##### Figure (build) parameters for car identify:
+
+`bodywork [тип кузова]`
+Type | Valid values | Comment | Units
+--- | --- | --- | ---
+str | SEDAN, ALLROAD, WAGON, COUPE, HATCHBACK, CABRIO, PICKUP, LIFTBACK | Седан, внедорожник (джип), универсал (минивэн), купе, хэтчбек, кабриолет (открытый), пикап, лифтбэк | -
+
+`doors_num [количество дверей]`
+Type | Valid values | Comment | Units
+--- | --- | --- | ---
+int | 2 - 6 | - | pcs
+
+`steering_wheel [руль]`
+Type | Valid values | Comment | Units
+--- | --- | --- | ---
+str | LEFT RIGHT | - | -
+
+`tech_conditions [техническое состояние]`
+Type | Valid values | Comment | Units
+--- | --- | --- | ---
+str | BEATEN NOT_BEATEN | Битый, не битый | -
+
+##### Other parameters for car identify:
+
+`owners_num [количество владельцев по ПТС]`
+Type | Valid values | Comment | Units
+--- | --- | --- | ---
+int | 0 + | - | ppl
+
+`vin [ВИН]`
+Type | Valid values | Comment | Units
+--- | --- | --- | ---
+str | - | - | -
+
+`color [цвет]`
+Type | Valid values | Comment | Units
+--- | --- | --- | ---
+str | BLACK, WHITE, BROWN and others | - | -
