@@ -70,6 +70,8 @@ def get_characteristics_with_page_to_CSV(link_list):
 
         try:
             car['color']=translate(card_soup.find('li',class_='productPage__productColor').get_text())
+            if car['color']=='The black':
+                car['color']='Black'
         except AttributeError:
             car['color']=None
 
