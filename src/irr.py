@@ -5,7 +5,7 @@ from googletrans import Translator
 
 URL = "https://irr.ru/cars/passenger/audi/"
 
-names = ['brand', 'model', 'year', 'price', 'mileage', 'horsepower', 'engine_capacity', 'engine_type', 'gear', 'transmission', 'bodywork', 'steering_wheel', 'tech_condition', 'owners_num', 'doors_num', 'VIN', 'color']
+names = ['brand', 'model', 'year', 'price', 'mileage', 'horsepower', 'engine_capacity', 'engine_type', 'gear', 'transmission', 'bodywork', 'steering_wheel', 'tech_condition', 'owners_num', 'doors_num', 'vin', 'color']
 
 def get_html (url, params=None):
     r = requests.get(url, params)
@@ -93,11 +93,11 @@ def get_characteristics_with_page_to_CSV(link_list):
 
 
                 if characteristic[0]=='Марка':
-                    car['brand']=characteristic[1]
+                    car['brand']=(characteristic[1]).strip()
 
 
                 if characteristic[0]=='Модель':
-                    car['model']=str(characteristic[1])
+                    car['model']=(str(characteristic[1])).strip()
 
 
 
@@ -130,7 +130,7 @@ def get_characteristics_with_page_to_CSV(link_list):
 
 
                 if characteristic[0]=='VIN':
-                    car['vin']=characteristic[1]
+                    car['vin']=(characteristic[1]).strip()
 
 
                 if characteristic[0]=='Кол-во владельцев':
@@ -164,10 +164,10 @@ engine_type_enum = {
 }
 
 transmission_enum = {
-    'автомат ':'at',
-    'механика ':'mt',
-    'вариатор ':'cvt',
-    'робот ':'amt'
+    'автомат ':'AT',
+    'механика ':'MT',
+    'вариатор ':'CVT',
+    'робот ':'AMT'
 }
 
 wheel_enum = {
@@ -176,8 +176,8 @@ wheel_enum = {
 }
 
 tech_condition_enum = {
-    'б/у ' : 'beaten',
-    'новый' : 'not_beaten'
+    'б/у ' : 'BEATEN',
+    'новый' : 'NOT_BEATEN'
 }
 
 gear_enum = {
