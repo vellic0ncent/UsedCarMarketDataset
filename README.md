@@ -15,7 +15,7 @@ Public placed offers on 5 popular sources with used cars offers in Russia:
 ### Repo structure
 1) */data* includes folder "interim" and integrated result from the folder "interim" in .csv format
 2) */data/interim* includes raw data got by 5 parsers in .csv format
-3) *scr* ncludes 5 parsers in .py format and integrator main.py
+3) *src* includes parsers source code
 4) *README* includes dataset detailed information on collection methods, features and others params.
 
 ### Data collection methods and formating

@@ -1,0 +1,19 @@
+columns_csv = [
+    'brand',
+    'model',
+    'year',
+    'price',
+    'mileage',
+    'horsepower',
+    'engine_capacity',
+    'engine_type',
+    'gear',
+    'transmission',
+    'bodywork',
+    'doors_num',
+    'steering_wheel',
+    'tech_condition',
+    'owners_num',
+    'color',
+    'vin'
+]

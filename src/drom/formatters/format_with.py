@@ -1,0 +1,1 @@
+format_with = lambda mapper: lambda value: mapper.get(value.lower(), '')
