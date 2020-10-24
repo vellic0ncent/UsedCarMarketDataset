@@ -8,6 +8,7 @@ from drom.formatters.format_engine_type import format_engine_type
 from drom.formatters.format_steering_wheel import format_steering_wheel
 from drom.formatters.format_mileage import format_mileage
 from drom.formatters.format_price import format_price
+from drom.formatters.format_engine_capacity import format_engine_capacity
 
 from drom.no_throw import no_throw
 
@@ -23,7 +24,7 @@ prepare_steering_wheel = lambda v: format_steering_wheel(e.extract_steering_whee
 prepare_hoursepower = lambda v: e.extract_hoursepower(v)
 prepare_vin = lambda v: e.extract_vin(v)
 prepare_engine_type = lambda v: format_engine_type(e.extract_engine_type(v))
-prepare_engine_capacity = lambda v: e.extract_engine_capacity(v)
+prepare_engine_capacity = lambda v: format_engine_capacity(e.extract_engine_capacity(v))
 prepare_mileage = lambda v: format_mileage(e.extract_mileage(v))
 prepare_doors_num = lambda v: e.extract_doors_num(v)
 
