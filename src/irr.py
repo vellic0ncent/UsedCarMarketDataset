@@ -27,7 +27,7 @@ def get_pages(url):
         return 1
 
 def write_to_csv(data):
-    with open('irr.csv', 'a') as file:
+    with open('irr.csv', 'a', encoding='utf-8') as file:
         writer = csv.writer(file)
         writer.writerow((data['brand'],
                          data['model'],
@@ -58,12 +58,14 @@ def get_link_list_with_cards(url):
     return link_list
 
 def replace_to_enum(value, enum_mappings):
+
     if value is not None:
         return enum_mappings[value]
     else:
         return None
 
 def get_characteristics_with_page_to_CSV(link_list):
+
     for link in link_list:
         card = get_html(link)
         card_soup = BeautifulSoup (card.text, 'html.parser')
@@ -197,7 +199,7 @@ bodywork_enum = {
 
 
 
-with open('irr.csv', 'a') as file:
+with open('irr.csv', 'a', encoding='utf-8') as file:
     writer = csv.writer(file)
     writer.writerow(names)
 
