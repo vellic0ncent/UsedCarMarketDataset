@@ -151,7 +151,6 @@ def get_characteristics_with_page_to_CSV(link_list):
 
                 if characteristic[0] == 'Привод':
                     car['gear'] = replace_to_enum(characteristic[1], gear_enum)
-                    print(car['gear'])
 
 
         if car['model'] is None:
