@@ -33,7 +33,7 @@ def write_to_csv(data):
                          data['transmission'],
                          data['bodywork'],
                          data.get('steering_wheel', None),
-                         ' ',
+                         '',
                          data.get('Владельцев', None),
                          data['doors_num'],
                          data.get('VIN', None),
@@ -83,7 +83,7 @@ def read_data_auto(aut):
     for item in aut:
         auto_name = item.find('a', {'class': 'SerpSnippet_name__3F7Yu SerpSnippet_titleText__1Ex8A blackLink'}).text
         brand, model = auto_name[:4], auto_name[5:].split(',')[0]
-        price = item.find('div', {'data-target': 'serp-snippet-price'}).text
+        price = int(item.find('div', {'data-target': 'serp-snippet-price'}).text.replace(' ',''))
         link = item.find('a', {'data-target': 'serp-snippet-title'}).get('href')
         html = urlopen(link, context=ctx).read()
         soup_detailed = BeautifulSoup(html, "html.parser")
@@ -98,11 +98,11 @@ def read_data_auto(aut):
         dict_value['gear'] = replace_to_enum(dict_value['Привод'], gear_enum)
         dict_value['transmission'] = replace_to_enum(dict_value['КПП'], transmission_enum)
         dict_value['engine_capacity'] = dict_value['Двигатель'].split('/')[1]
-        dict_value['engine_capacity'] = dict_value['engine_capacity'].split('л')[0]  #.split(' ')[0]
+        dict_value['engine_capacity'] = dict_value['engine_capacity'].split('л')[0].strip()  
         dict_value['bodywork'] = replace_to_enum(dict_value['Кузов'].split(' ')[0], bodywork_enum)
         dict_value['doors_num'] = ''.join(re.findall('\d', dict_value['Кузов'])) 
         dict_value['horsepower'] = dict_value['Мощность'].split(' л. с.')[0]
-        dict_value['color'] = translate(dict_value['Цвет'])
+        dict_value['color'] = (translate(dict_value['Цвет'])).upper().replace('THE ','')
         if dict_value.get('Руль', None) == 'Левый':
             dict_value['steering_wheel'] = "LEFT"
         elif dict_value.get('Руль', None) == 'Правый':
@@ -136,7 +136,7 @@ def data_for_more_pages(current_page):
     read_data_auto(aut)
 
 #записываем заголовки, первую страницу, остальные страницы
-with open('youla.csv', 'a') as file:
+with open('youla.csv', 'a', encoding='utf-8') as file:
         writer = csv.writer(file)
         writer.writerow(names)
 data_for_first_page()    
