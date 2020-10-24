@@ -1,0 +1,11 @@
+beautifulsoup4==4.9.3
+bs4==0.0.1
+fake-useragent==0.1.11
+googletrans==3.0.0
+Jinja2==2.11.1
+lxml==4.5.2
+numpy==1.17.4
+PySocks==1.7.1
+requests==2.22.0
+socks5==0.2.1
+urllib3==1.25.8
