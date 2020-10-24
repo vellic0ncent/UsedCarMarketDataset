@@ -19,7 +19,7 @@ def url_adress(current_page):
     return next_page
     
 def write_to_csv(data):
-    with open('youla.csv', 'a') as file:
+    with open('youla.csv', 'a', encoding='utf-8') as file:
         writer = csv.writer(file)
         writer.writerow((data['brand'],
                          data['model'],
