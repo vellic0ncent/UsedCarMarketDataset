@@ -3,6 +3,7 @@ import requests
 import json
 import csv
 import random
+import re
 import os.path
 
 
@@ -33,17 +34,22 @@ def get_page_content(city: str, brand: str, page_num: int) -> dict:
 def download_raw_offers(city='moskva', brand='all', page_count=100) -> dict:
     id_to_offer = {}
     for page_num in range(1, page_count):
-        page_content = get_page_content(city, brand, page_num)
-        offers = page_content['listing']['data']['offers']
-        print(f"Auto.ru: page number: {page_num}, offers count: {len(offers)}")
-        for offer in offers:
-            id_to_offer[getOfferId(offer)] = offer
+        try:
+            page_content = get_page_content(city, brand, page_num)
+            offers = page_content['listing']['data']['offers']
+            print(f"Auto.ru: page number: {page_num}, offers count: {len(offers)}")
+            for offer in offers:
+                id_to_offer[getOfferId(offer)] = offer
+        except BaseException:
+            print(f'Auto.ru: error during processing {page_num} page')
+
+
     print(f'Auto.ru: total offers downloaded: {len(id_to_offer)}')
     return id_to_offer
 
 
-default_dump_filename = 'data/auto_ru_cars'
-default_example_dump_filename = 'data/auto_ru_cars.example'
+default_dump_filename = 'data/interim/auto_ru_cars'
+default_example_dump_filename = 'data/interim/auto_ru_cars.example'
 
 
 def dump_offers_to_file_as_json(id_to_offer: dict, filename: str) -> None:
@@ -64,31 +70,45 @@ def read_offers(filename: str) -> dict:
         return json.load(f)
 
 
+def extract_group_from_regexp(string: str, regexp: str) -> str:
+    match = re.search(regexp, string)
+    if match is not None:
+        return match.group(1) or ''
+    else:
+        return ''
+
+
 def map_offer_necessary_info(offer):
-    return {
-        'brand': offer['vehicle_info']['mark_info']['name'],
-        'model': offer['vehicle_info']['model_info']['name'],
-        'year': offer['documents']['year'],
-        'mileage': offer['state']['mileage'],
-        'engine_type': offer['vehicle_info']['tech_param']['engine_type'],
-        'transmission': offer['vehicle_info']['tech_param']['gear_type'],
-        'color': offer['color_hex'],
-        'bodywork': offer['vehicle_info']['configuration']['body_type'],
-        'doors_num': offer['vehicle_info']['configuration']['doors_count'],
-        'steering_wheel': offer['vehicle_info']['steering_wheel'],
-        'vin': offer['documents'].get('vin', None),
-        'owners_num': offer['documents'].get('owners_number', 0),
-        'tech_condition': 'NOT_BEATEN' if offer['state']['state_not_beaten'] else 'BEATEN',
-        'horsepower': offer['vehicle_info']['tech_param']['power'],
-        'engine_capacity': offer['vehicle_info']['tech_param']['human_name'],
-        'price': offer['price_info']['price'],
-        'price_currency': offer['price_info']['currency'],
-        'price_with_nds': offer['price_info']['with_nds']
-    }
+    try:
+        return {
+            'brand': offer['vehicle_info']['mark_info']['name'],
+            'model': offer['vehicle_info']['model_info']['name'],
+            'year': offer['documents']['year'],
+            'price': offer['price_info']['price'],
+            'mileage': offer['state']['mileage'],
+            'horsepower': offer['vehicle_info']['tech_param']['power'],
+            'engine_capacity': extract_group_from_regexp(
+                offer['vehicle_info']['tech_param']['human_name'],
+                '^(\d+.?\d*) '
+            ),
+            'engine_type': offer['vehicle_info']['tech_param']['engine_type'],
+            'gear': offer['vehicle_info']['tech_param']['gear_type'],
+            'transmission': extract_group_from_regexp(offer['vehicle_info']['tech_param']['human_name'], ' (\w+) \('),
+            'bodywork': extract_group_from_regexp(offer['vehicle_info']['configuration']['body_type'], '^([A-Z]+)'),
+            'doors_num': offer['vehicle_info']['configuration']['doors_count'],
+            'wheel': offer['vehicle_info']['steering_wheel'],
+            'tech_condition': 'NOT_BEATEN' if offer['state']['state_not_beaten'] else 'BEATEN',
+            'owners_num': offer['documents'].get('owners_number', 0),
+            'vin': offer['documents'].get('vin', ''),
+            'color': offer['color_hex']
+        }
+    except BaseException:
+        print(f'Auto.ru: error during mapping offering with id {getOfferId(offer)}')
+        return None
 
 
 def map_offers_necessary_info(offers):
-    return list(map(map_offer_necessary_info, offers))
+    return list(filter(lambda x: x is not None, map(map_offer_necessary_info, offers)))
 
 
 def dump_offers_to_file_as_csv(offers: list, filename: str) -> None:
