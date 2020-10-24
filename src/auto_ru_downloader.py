@@ -5,6 +5,24 @@ import csv
 import random
 import re
 import os.path
+import numpy as np
+import webcolors
+
+RGBS = np.empty((len(webcolors.CSS3_HEX_TO_NAMES), 3), dtype='int64')
+COLOR_NAMES = []
+for i, hex in enumerate(webcolors.CSS3_HEX_TO_NAMES):
+    COLOR_NAMES.append(webcolors.CSS3_HEX_TO_NAMES[hex])
+    RGBS[i] = webcolors.hex_to_rgb(hex)
+
+
+def distance_with_many_vectors(vector_array, v):
+    return np.sqrt(np.sum((vector_array - np.full(vector_array.shape, v)) ** 2, axis=1))
+
+
+def soft_map_from_hex_to_name(hex):
+    rgb = np.array(webcolors.hex_to_rgb(hex))
+    color_distances = distance_with_many_vectors(RGBS, rgb)
+    return COLOR_NAMES[color_distances.argmin()].upper()
 
 
 def getOfferId(offer: dict) -> str:
@@ -96,11 +114,11 @@ def map_offer_necessary_info(offer):
             'transmission': extract_group_from_regexp(offer['vehicle_info']['tech_param']['human_name'], ' (\w+) \('),
             'bodywork': extract_group_from_regexp(offer['vehicle_info']['configuration']['body_type'], '^([A-Z]+)'),
             'doors_num': offer['vehicle_info']['configuration']['doors_count'],
-            'wheel': offer['vehicle_info']['steering_wheel'],
+            'steering_wheel': offer['vehicle_info']['steering_wheel'],
             'tech_condition': 'NOT_BEATEN' if offer['state']['state_not_beaten'] else 'BEATEN',
             'owners_num': offer['documents'].get('owners_number', 0),
             'vin': offer['documents'].get('vin', ''),
-            'color': offer['color_hex']
+            'color': soft_map_from_hex_to_name(f"#{offer['color_hex']}")
         }
     except BaseException:
         print(f'Auto.ru: error during mapping offering with id {getOfferId(offer)}')
