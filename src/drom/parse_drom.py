@@ -8,7 +8,7 @@ import drom.drom_parser as parser
 import drom.prepare2serilalize as p2s
 
 def parse_drom(into, city, brand, record_num = sys.maxsize):
-    with open(into, 'w') as csvfile:
+    with open(into, 'w', encoding='utf-8') as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=columns_csv)
         writer.writeheader()
         records_parsed = 0
