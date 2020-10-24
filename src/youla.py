@@ -12,7 +12,7 @@ ctx.check_hostname = False
 ctx.verify_mode = ssl.CERT_NONE
 
 url = "https://auto.youla.ru/moskva/cars/used/audi/?page="  
-names = ['brand', 'model', 'year', 'price', 'mileage', 'horsepower', 'engine_capacity', 'engine_type', 'gear', 'transmission', 'bodywork', 'steering_wheel', 'tech_condition', 'owners_num', 'doors_num', 'VIN', 'color']
+names = ['brand', 'model', 'year', 'price', 'mileage', 'horsepower', 'engine_capacity', 'engine_type', 'gear', 'transmission', 'bodywork', 'steering_wheel', 'tech_condition', 'owners_num', 'doors_num', 'vin', 'color']
     
 def url_adress(current_page):
     next_page = url + current_page + "#serp"
