@@ -2,10 +2,10 @@ import requests
 import csv
 import sys
 
-from columns.columns_csv import columns_csv
-import drom_service as service
-import drom_parser as parser
-import prepare2serilalize as p2s
+from drom.columns.columns_csv import columns_csv
+import drom.drom_service as service
+import drom.drom_parser as parser
+import drom.prepare2serilalize as p2s
 
 def parse_drom(into, city, brand, record_num = sys.maxsize):
     with open(into, 'w') as csvfile:

@@ -1,15 +1,15 @@
-import extracters as e
+import drom.extracters as e
 
-from formatters.format_gear import format_gear
-from formatters.format_bodywork import format_bodywork
-from formatters.format_transmission import format_transmission
-from formatters.format_color import format_color
-from formatters.format_engine_type import format_engine_type
-from formatters.format_steering_wheel import format_steering_wheel
-from formatters.format_mileage import format_mileage
-from formatters.format_price import format_price
+from drom.formatters.format_gear import format_gear
+from drom.formatters.format_bodywork import format_bodywork
+from drom.formatters.format_transmission import format_transmission
+from drom.formatters.format_color import format_color
+from drom.formatters.format_engine_type import format_engine_type
+from drom.formatters.format_steering_wheel import format_steering_wheel
+from drom.formatters.format_mileage import format_mileage
+from drom.formatters.format_price import format_price
 
-from no_throw import no_throw
+from drom.no_throw import no_throw
 
 prepare_model = lambda v: e.extract_model(v)
 prepare_brand = lambda v: e.extract_brand(v)
